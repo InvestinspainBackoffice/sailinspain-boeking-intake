@@ -33,6 +33,11 @@ function doPost(e) {
       ]);
     }
 
+    // Formatteer gerechten als checkbox-lijst voor contract
+    const foodsFormatted = formatFoodCheckboxes(data.foods || '');
+    // Formatteer dranken als checkbox-lijst voor contract
+    const drinksFormatted = formatDrinkCheckboxes(data.drinks || '');
+
     // Voeg rij toe
     sheet.appendRow([
       new Date().toLocaleString('nl-BE'),
@@ -54,8 +59,8 @@ function doPost(e) {
       data.fuel || '',
       data.total || '',
       data.catering || '',
-      data.foods || '',
-      data.drinks || '',
+      foodsFormatted,
+      drinksFormatted,
       data.wine || '',
       data.bubbly || '',
       data.special || '',
@@ -76,6 +81,46 @@ function doPost(e) {
       .createTextOutput(JSON.stringify({ status: 'error', message: err.toString() }))
       .setMimeType(ContentService.MimeType.JSON);
   }
+}
+
+// Formatteer gerechten als checkbox-lijst (☐/☑) voor het contract
+function formatFoodCheckboxes(foodsStr) {
+  const allFoods = [
+    'Mediterranean breakfast board',
+    'Chicken salad',
+    'Pasta deluxe (prawns)',
+    'Paella',
+    'Tapas board – luxury version',
+    'Fresh Tortilla',
+    'Tiramisu',
+    'Fresh fruit'
+  ];
+  const selected = foodsStr ? foodsStr.split(',').map(function(s) { return s.trim().toLowerCase(); }) : [];
+  return allFoods.map(function(food) {
+    var isSelected = selected.some(function(s) {
+      return food.toLowerCase().indexOf(s) >= 0 || s.indexOf(food.toLowerCase()) >= 0;
+    });
+    return (isSelected ? '☑' : '☐') + ' ' + food;
+  }).join('\n');
+}
+
+// Formatteer dranken als checkbox-lijst (☐/☑) voor het contract
+function formatDrinkCheckboxes(drinksStr) {
+  const allDrinks = [
+    'Wine (Rosé, Red, White)',
+    'Cava',
+    'Champagne',
+    'Gin & tonic',
+    'Vodka + fresh orange',
+    'Mojito'
+  ];
+  const selected = drinksStr ? drinksStr.split(',').map(function(s) { return s.trim().toLowerCase(); }) : [];
+  return allDrinks.map(function(drink) {
+    var isSelected = selected.some(function(s) {
+      return drink.toLowerCase().indexOf(s) >= 0 || s.indexOf(drink.toLowerCase()) >= 0;
+    });
+    return (isSelected ? '☑' : '☐') + ' ' + drink;
+  }).join('\n');
 }
 
 function formatEmail(d) {
