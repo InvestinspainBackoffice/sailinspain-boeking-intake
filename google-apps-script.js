@@ -18,7 +18,7 @@ const EMAIL = 'backoffice@investinspain.be';
 function doPost(e) {
   try {
     const data = JSON.parse(e.postData.contents);
-    const ss = SpreadsheetApp.getActiveSpreadsheet();
+    const ss = SpreadsheetApp.openById('1R-zt21WNV8RSBKrtL2MGn-VBHSsa1M0NSHm55ukJwbI');
     let sheet = ss.getSheetByName('Boekingen');
 
     // Maak headers aan als het sheet leeg is
