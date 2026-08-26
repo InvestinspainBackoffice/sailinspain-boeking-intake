@@ -44,7 +44,7 @@ naar de gebruiker als dit ooit verwarrend is:
    `index.html`. Bij een release moet dezelfde inhoud naar **beide** repo's
    gepusht worden (in repo 2 als `index.html`, niet `booking.html`).
 
-Beide staan momenteel gesynchroniseerd op de compacte versie zonder "Book your
+Beide repo's staan gesynchroniseerd op de compacte versie zonder "Book your Trip"-knop.
 Trip"-knop (laatste commit in repo 1: redesign-commit; **let op:** de laatste
 compact-aanpassing (knop weg, compacter) is op moment van dit handoff-bestand
 nog **niet gepusht** — dat moet nog gebeuren vanuit welke omgeving dan ook
